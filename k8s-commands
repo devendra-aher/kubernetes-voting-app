@@ -1,0 +1,103 @@
+**Pods**
+
+//run new pod
+kubectl run nginx --image nginx
+
+//get pods
+kubectl get pods
+
+//get pods from namespace
+kubectl get pods --namespace=dev
+
+//get pods from all namespaces
+kubectl get pods --all-namespaces
+
+// get pods with more info
+kubectl get pods -o wide
+
+//describe pods, get more info
+kubectl describe pod pod-name
+
+// create k8s resources from yaml file 
+kubectl create -f pod-def.yaml
+
+//create pod yaml from command
+kubectl run nginx --image nginx --dry-run=client -o yaml
+
+//create pod yaml file from command
+kubectl run nginx --image nginx --dry-run=client -o yaml > nginx.yaml
+
+// edit pod configuration
+kubectl edit pod <pod-name>
+
+Please note that only the properties listed below are editable.
+spec.containers[*].image
+spec.initContainers[*].image
+spec.activeDeadlineSeconds
+spec.tolerations
+spec.terminationGracePeriodSeconds
+
+// create yaml file from given pod
+kubectl get pod <pod-name> -o yaml > pod-definition.yaml
+
+// Output formats : 
+Here are some of the commonly used formats:
+-o json   Output a JSON formatted API object.
+-o name   Print only the resource name and nothing else.
+-o wide   Output in the plain-text format with any additional information.
+-o yaml   Output a YAML formatted API object.
+
+**Replica Set**
+
+//scaling
+//1 way - edit replicaset yaml definition
+//then run following command
+kubectl replace -f replicaset-definition.yaml
+
+//2nd way - 
+kubectl scale --replicas=6 -f replicaset-definition.yaml
+
+//3rd way - 
+kubectl scale --replicas=6 replicaset myapp-replicaset
+
+**Deployment**
+
+//Create a deployment
+kubectl create deployment --image=nginx nginx
+
+//Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
+kubectl create deployment --image=nginx nginx --dry-run -o yaml
+
+//Generate Deployment with 4 Replicas
+kubectl create deployment nginx --image=nginx --replicas=4
+
+//You can also scale deployment using the kubectl scale command.
+kubectl scale deployment nginx --replicas=4
+
+//Another way to do this is to save the YAML definition to a file and modify
+kubectl create deployment nginx --image=nginx--dry-run=client -o yaml > nginx-deployment.yaml
+
+
+**Service**
+
+//Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
+kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
+(This will automatically use the pod's labels as selectors)
+
+kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml
+(This will not use the pods' labels as selectors; instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
+
+//Create a Service named nginx of type NodePort to expose pod nginx's port 80 on port 30080 on the nodes:
+kubectl expose pod nginx --port=80 --name nginx-service --type=NodePort --dry-run=client -o yaml
+(This will automatically use the pod's labels as selectors, but you cannot specify the node port. You have to generate a definition file and then add the node port in manually before creating the service with the pod.)
+
+OR
+
+kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
+(This will not use the pods' labels as selectors)
+
+**Namespace**
+//switch namespace
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+
+

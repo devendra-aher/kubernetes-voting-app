@@ -116,6 +116,12 @@ kubectl create configMap webapp-config-map --from-literal=APP_COLOR=blue
 ** Secret **
 kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
 
+** Service Account **
+kubectl create serviceaccount dashboard-sa
+
+//Create Token
+kubectl create token dashboard-sa
+
 
 
 

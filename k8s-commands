@@ -27,6 +27,12 @@ kubectl run nginx --image nginx --dry-run=client -o yaml
 //create pod yaml file from command
 kubectl run nginx --image nginx --dry-run=client -o yaml > nginx.yaml
 
+//Run with command line arguments
+kubectl run nginx --image=nginx -- <specify args>
+
+//Run with command & command line arguments
+kubectl run nginx --image=nginx --commands -- <command> <specify args>
+
 // edit pod configuration
 kubectl edit pod <pod-name>
 

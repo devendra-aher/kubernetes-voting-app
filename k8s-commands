@@ -27,6 +27,9 @@ kubectl run nginx --image nginx --dry-run=client -o yaml
 //create pod yaml file from command
 kubectl run nginx --image nginx --dry-run=client -o yaml > nginx.yaml
 
+//Get Yaml of existing resource
+kubectl get pod webapp -o yaml > pod.yaml
+
 //Run with command line arguments
 kubectl run nginx --image=nginx -- <specify args>
 
@@ -105,5 +108,15 @@ kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=cl
 **Namespace**
 //switch namespace
 kubectl config set-context $(kubectl config current-context) --namespace=dev
+
+
+** Config Map **
+kubectl create configMap webapp-config-map --from-literal=APP_COLOR=blue
+
+** Secret **
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+
+
+
 
 

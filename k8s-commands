@@ -128,7 +128,8 @@ kubectl create token dashboard-sa
 kubectl taint nodes node01 spray=mortein:NoSchedule
 
 //To remove taint from Node
-edit node, then remove it from yaml
+1. kubectl taint nodes node01 spray=mortein:NoSchedule-   //Just add - at the end of the command to create taint
+2. edit node, then remove it from yaml
 
 
 

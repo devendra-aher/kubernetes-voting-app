@@ -122,6 +122,16 @@ kubectl create serviceaccount dashboard-sa
 //Create Token
 kubectl create token dashboard-sa
 
+** Taint & Tolerations **
+
+//Command to add taint to Node
+kubectl taint nodes node01 spray=mortein:NoSchedule
+
+//To remove taint from Node
+edit node, then remove it from yaml
+
+
+
 
 
 

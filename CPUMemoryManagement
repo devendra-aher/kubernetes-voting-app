@@ -1,0 +1,57 @@
+//Pod level mamangement
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: result
+  name: result
+spec:
+  containers:
+  - image: dockersamples/examplevotingapp_result
+    name: result
+    ports:
+    - containerPort: 80
+      name: result
+    resources:
+      requests: 
+        cpu: 1
+        memory: "1Gi"
+      limits:
+        cpu: 2
+        memory: "2Gi"
+
+
+//Namespace Level
+ResourceQuota
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: my-resource-data
+spec:
+  hard:
+    request.cpu: 4
+    request.memory: 4Gi
+    limits.cpu: 10
+    limits.memory: 10Gi
+//Limit for all the pods in a cluster
+LimitRange
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: my-limit-range
+spec:
+  limits:
+    - default:
+        cpu: 500m
+      defaultReset:
+        cpu: 500m
+      max:
+        cpu: "1"
+      min:
+        cpu: 100m
+      type: Container
+
+

@@ -131,6 +131,8 @@ kubectl taint nodes node01 spray=mortein:NoSchedule
 1. kubectl taint nodes node01 spray=mortein:NoSchedule-   //Just add - at the end of the command to create taint
 2. edit node, then remove it from yaml
 
+** Add Label to Node **
+kubectl label nodes <node-name> <label-key>=<label-value>
 
 
 

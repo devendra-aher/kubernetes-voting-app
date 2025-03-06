@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: result
+  name: result
+spec:
+  containers:
+  - image: dockersamples/examplevotingapp_result
+    name: result
+    livenessProbe:
+      httpGet:
+        path: /live
+        port: 8080
+      initialDelaySeconds: 80
+      periodSeconds: 1
+
+
+//same goes for readinessProbe

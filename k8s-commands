@@ -135,6 +135,11 @@ kubectl taint nodes node01 spray=mortein:NoSchedule
 kubectl label nodes <node-name> <label-key>=<label-value>
 
 
+** Edit API Server **
+vi /etc/kubernetes/manifests/kube-apiserver.yaml
+
+** View Admission Plugins **
+ps -ef | grep kube-apiserver | grep admission-plugins
 
 
 

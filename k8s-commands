@@ -135,11 +135,32 @@ kubectl taint nodes node01 spray=mortein:NoSchedule
 kubectl label nodes <node-name> <label-key>=<label-value>
 
 
-** Edit API Server **
+** Edit API Server - to enable & disable admission-controller **
 vi /etc/kubernetes/manifests/kube-apiserver.yaml
+
+** --> option - to enable & disable admission-controller
+--enable-admission-plugin=<pluginName>
+--disable-admission-plugin=<pluginName>
+
+** --> enable specific version for API
+
+--runtime-config=rbac.authorization.k8s.io/v1alpha1
+
 
 ** View Admission Plugins **
 ps -ef | grep kube-apiserver | grep admission-plugins
+
+**Proxy kube server **
+kubectl proxy 8001&
+
+** hit APIs**
+
+curl localhost:8001/apis/authorization.k8s.io
+
+** Kubectl convert **
+kubectl convert -f ingress-old.yaml --output-version networking.k8s.io/v1 > ingress-new.yaml
+
+
 
 
 
